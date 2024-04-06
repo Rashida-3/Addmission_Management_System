@@ -1,0 +1,75 @@
+{% extends "sidebar.html" %}
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-primary shadow">
+                <div class="card-body">
+                    <h2 class="text-center mb-4">You are SignUp Successfully!</h2>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="user_name">Name:</label>
+                            <input type="text" class="form-control" id="user_name" name="name" placeholder="Enter user name">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail4">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" pattern="[0-9]{10}"
+                                title="Please enter a 10-digit phone number" minlength="10" maxlength="10" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="date">Date of Birth</label>
+                            <input type="date" class="form-control" id="date" name="date_of_birth" onkeydown="return false;"
+                                onpaste="return false;" oncut="return false;">
+                        </div>
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" class="form-control" id="city" name="city" placeholder="Enter city">
+                        </div>
+                        <div class="form-group">
+                            <label for="my_field">Choose a Field:</label>
+                            <select name="my_field" id="my_field" class="form-control">
+                                <option value="select">-----select-----</option>
+                                {% for choice in choices %}
+                                <option value="{{ choice }}">{{ choice }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password">
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+    .card {
+        border-radius: 15px;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        border-radius: 20px;
+        padding: 10px;
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+    .form-group label {
+        font-weight: bold;
+    }
+</style>
+{% endblock %}

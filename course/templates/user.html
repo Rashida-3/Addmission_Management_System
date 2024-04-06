@@ -1,0 +1,19 @@
+
+
+{% extends "sidebar.html" %}
+{% load tags %}
+
+{% block body %}
+
+<h1>View User Details</h1>
+<p>Name: {{ user.name }}</p>
+<p>Email: {{ user.email }}</p>
+<p>Phone: {{ user.phone }}</p>
+<p>Date of Birth: {{ user.date_of_birth }}</p>
+<p>City: {{ user.city }}</p>
+<p>My Field: {{ user.my_field }}</p>
+<!-- Add other fields as needed -->
+
+    
+
+{% endblock %}

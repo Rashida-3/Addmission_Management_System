@@ -1,0 +1,168 @@
+{% load tags%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            width: 50%;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="datetime-local"],
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #0f0f0f;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #929693;
+        }
+
+        /* Optional: Adjust layout for smaller screens */
+        @media (max-width: 600px) {
+            form {
+                width: 80%;
+            }
+        }
+
+        /* Styles for navbar */
+        .navbar {
+            background-color: #797c7c;
+            overflow: hidden;
+        }
+
+        .navbar a {
+            float: left;
+            display: block;
+            color: #0f0f0f;
+            text-align: center;
+            padding: 25px 16px;
+            text-decoration: none;
+        }
+
+        .navbar a:hover {
+            background-color: #414040;
+            color: rgb(214, 211, 211);
+        }
+
+        .navbar .logout {
+            float: right;
+        }
+
+        /* Styles for sidebar */
+        .sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 9%;
+            left: -250px;
+            background-color: #797c7c;
+            padding-top: 15px;
+            transition: 0.5s;
+        }
+
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 22px;
+            color: #afadad;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            color: #fbf4f4;
+        }
+
+        .open {
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+
+        <a href="#" onclick="openSidebar()"><b>Mumbai Coding Club</b></a>
+        <a href="#"><b>Home</b></a>
+        <a href="#"><b>About</b></a>
+
+        <a href="{% url 'custom_login' %}" class="logout"><b>Logout</b></a>
+    </div>
+    
+    <div class="sidebar" id="sidebar">
+        {% if request.user|has_group:"admin" %}
+
+        <a href="{% url 'add_user' %}">Add User</a>
+        
+        {% endif %}
+
+        <!-- super user -->
+
+        {% if request.user|has_group:"superuser" %}
+
+        <a href="{% url 'dashboard' %}">Dashboard</a>
+
+        <a href="{% url 'add_user' %}">Add User</a>
+
+
+        <a href="{% url 'update1' %}">Update User</a>
+
+        {% endif %}
+        {% if request.user|has_group:"user" %}
+
+        <a href="{% url 'my_course' %}">Course Details</a>
+        {% endif %}
+        <a href="#" onclick="closeSidebar()">Close Sidebar </a>
+    </div>
+
+    <!-- Your JavaScript code -->
+    <script>
+
+        function openSidebar() {
+            document.getElementById("sidebar").style.left = "0";
+        }
+
+        function closeSidebar() {
+            document.getElementById("sidebar").style.left = "-250px";
+        }
+    </script>
+
+    {% block body %}
+    {% endblock body %}
